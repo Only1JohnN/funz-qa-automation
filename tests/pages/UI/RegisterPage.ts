@@ -1,3 +1,5 @@
+// tests/pages/UI/RegisterPage.ts
+
 import { Page, Locator, expect } from '@playwright/test';
 
 export class RegisterPage {

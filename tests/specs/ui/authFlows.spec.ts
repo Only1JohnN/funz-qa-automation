@@ -1,3 +1,5 @@
+// tests/specs/ui/authFlows.spec.ts
+
 import { test, expect } from '@playwright/test';
 import { HomePage } from '../../pages/UI/HomePage'; 
 import { RegisterPage } from '../../pages/UI/RegisterPage';

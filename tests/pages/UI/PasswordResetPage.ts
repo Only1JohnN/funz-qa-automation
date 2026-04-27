@@ -1,3 +1,5 @@
+// tests/pages/UI/PasswordResetPage.ts
+
 import { Page, expect } from '@playwright/test';
 
 export class PasswordResetPage {
