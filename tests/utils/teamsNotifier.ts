@@ -50,8 +50,9 @@ export async function sendTeamsReport(summary: any) {
   const statusIcon = isPass ? '✅' : '❌';
   const statusText = isPass ? 'PASSED' : 'FAILED';
 
-  const reportUrl = process.env.GITHUB_REPOSITORY
-  ? `https://${process.env.GITHUB_REPOSITORY_OWNER}.github.io/${process.env.GITHUB_REPOSITORY}/${RUN_MODE}-report/`
+  const repoName = process.env.GITHUB_REPOSITORY?.split('/')[1] || '';
+  const reportUrl = process.env.GITHUB_REPOSITORY_OWNER && repoName
+  ? `https://${process.env.GITHUB_REPOSITORY_OWNER}.github.io/${repoName}/${RUN_MODE}-report/`
   : 'https://github.com';
 
   const card: AdaptiveCard = {
