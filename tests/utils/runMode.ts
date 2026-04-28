@@ -1,11 +1,12 @@
-export type RunMode = 'local' | 'smoke' | 'regression' | 'daily-smoke';
+export type RunMode = 'local' | 'smoke' | 'regression' | 'daily-smoke' | 'pr-regression';
 
 export const RUN_MODE = (process.env.RUN_MODE || 'local') as RunMode;
 
 export const shouldSendReport = 
   RUN_MODE === 'smoke' || 
   RUN_MODE === 'regression' || 
-  RUN_MODE === 'daily-smoke';
+  RUN_MODE === 'daily-smoke' ||
+  RUN_MODE === 'pr-regression';
 
 // Optional: only send on failure (to avoid spam)
 export const sendOnlyOnFailure = false; // set false to always send summary
