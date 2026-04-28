@@ -8,15 +8,29 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      pages: write
+      id-token: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 18
-      - run: npm ci
+          node-version: 20
+      - run: npm install
       - run: npx playwright install --with-deps
-      - run: npx playwright test --reporter=html,github  # github reporter adds annotations
+      - run: npx playwright test --reporter=html,github,./tests/reporters/teamsReporter.ts
         continue-on-error: true
+        env:
+          RUN_MODE: pr-regression
+          TEAMS_WEBHOOK_URL: ${{ secrets.TEAMS_WEBHOOK_URL }}
+          TEST_ENV: staging
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
+          GITHUB_RUN_ID: ${{ github.run_id }}
+          GITHUB_SERVER_URL: ${{ github.server_url }}
       - uses: actions/upload-artifact@v4
         if: always()
         with:
