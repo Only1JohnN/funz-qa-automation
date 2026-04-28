@@ -20,8 +20,13 @@ jobs:
           node-version: 20
       - run: npm install
       - run: npx playwright install --with-deps
-      - run: npx playwright test --reporter=html,github,./tests/reporters/teamsReporter.ts
-        continue-on-error: true
+
+      - name: Set timestamp
+        id: set-timestamp
+        run: echo "timestamp=$(date +'%Y-%m-%d_%H-%M-%S')" >> $GITHUB_OUTPUT
+
+      - name: Run Playwright tests
+        run: npx playwright test --reporter=html,github,./tests/reporters/teamsReporter.ts
         env:
           RUN_MODE: pr-regression
           TEAMS_WEBHOOK_URL: ${{ secrets.TEAMS_WEBHOOK_URL }}
@@ -30,11 +35,14 @@ jobs:
           GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
           GITHUB_RUN_ID: ${{ github.run_id }}
           GITHUB_SERVER_URL: ${{ github.server_url }}
+          RUN_TIMESTAMP: ${{ steps.set-timestamp.outputs.timestamp }}
+
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: playwright-report-${{ github.run_id }}
           path: playwright-report/
+
       - name: Comment on PR (on failure)
         if: failure()
         uses: actions/github-script@v7
@@ -47,14 +55,83 @@ jobs:
               repo: context.repo.repo,
               body: `❌ Regression tests failed. [Download HTML report](${reportUrl})`
             });
-      - name: Add .nojekyll
+
+      - name: Prepare gh-pages content (regression + root index)
         if: always()
-        run: touch playwright-report/.nojekyll
-      - name: Deploy regression report
+        run: |
+          TIMESTAMP="${{ steps.set-timestamp.outputs.timestamp }}"
+          mkdir -p gh-pages-content/regression/$TIMESTAMP
+          cp -r playwright-report/* gh-pages-content/regression/$TIMESTAMP/
+          touch gh-pages-content/regression/$TIMESTAMP/.nojekyll
+
+          # Build/update root index.html linking to both smoke and regression runs
+          cat > gh-pages-content/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <title>Playwright Test Reports</title>
+            <meta charset="UTF-8">
+            <style>
+              body { font-family: sans-serif; margin: 20px; background: #f0f2f5; }
+              .container { max-width: 1200px; margin: auto; background: white; padding: 20px; border-radius: 8px; }
+              h1 { color: #2c3e50; }
+              .section { margin-bottom: 30px; }
+              .run-list { list-style: none; padding: 0; }
+              .run-list li { margin: 8px 0; padding: 8px; background: #f8f9fa; border-radius: 6px; }
+              a { color: #3498db; text-decoration: none; }
+              a:hover { text-decoration: underline; }
+            </style>
+          </head>
+          <body>
+            <div class="container">
+              <h1>📊 Playwright Test Reports</h1>
+              <div class="section">
+                <h2>🧪 Regression Runs</h2>
+                <ul class="run-list">
+          EOF
+
+          # List regression runs (newest first)
+          for dir in $(ls -d gh-pages-content/regression/20*-*-*_*-*-* 2>/dev/null | sort -r); do
+            name=$(basename "$dir")
+            echo "<li><a href='regression/$name/'>$name</a></li>" >> gh-pages-content/index.html
+          done
+
+          cat >> gh-pages-content/index.html << 'EOF'
+                </ul>
+              </div>
+              <div class="section">
+                <h2>🔥 Smoke Runs (Daily)</h2>
+                <ul class="run-list">
+          EOF
+
+          # List smoke runs (if any)
+          for dir in $(ls -d gh-pages-content/smoke/20*-*-*_*-*-* 2>/dev/null | sort -r); do
+            name=$(basename "$dir")
+            echo "<li><a href='smoke/$name/'>$name</a></li>" >> gh-pages-content/index.html
+          done
+
+          cat >> gh-pages-content/index.html << 'EOF'
+                </ul>
+              </div>
+            </div>
+          </body>
+          </html>
+          EOF
+
+          touch gh-pages-content/.nojekyll
+
+      - name: Deploy to GitHub Pages
         if: always()
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./playwright-report
-          destination_dir: regression-report
+          publish_dir: ./gh-pages-content
+          publish_branch: gh-pages
           keep_files: true
+          allow_empty_commit: true
+
+      - name: Output URL
+        if: always()
+        run: |
+          REPO_NAME="${GITHUB_REPOSITORY#*/}"
+          echo "✅ Report: https://${{ github.repository_owner }}.github.io/$REPO_NAME/regression/${{ steps.set-timestamp.outputs.timestamp }}/"

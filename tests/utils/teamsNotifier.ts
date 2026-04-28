@@ -51,9 +51,20 @@ export async function sendTeamsReport(summary: any) {
   const statusText = isPass ? 'PASSED' : 'FAILED';
 
   const repoName = process.env.GITHUB_REPOSITORY?.split('/')[1] || '';
-  const reportUrl = process.env.GITHUB_REPOSITORY_OWNER && repoName
-  ? `https://${process.env.GITHUB_REPOSITORY_OWNER}.github.io/${repoName}/${RUN_MODE}-report/`
-  : 'https://github.com';
+  const owner = process.env.GITHUB_REPOSITORY_OWNER || '';
+  const baseUrl = `https://${owner}.github.io/${repoName}`;
+  const runTimestamp = process.env.RUN_TIMESTAMP;
+  const runMode = RUN_MODE; // 'pr-regression' or 'daily-smoke'
+  let reportUrl = baseUrl;
+  if (runTimestamp && runMode) {
+    const subfolder = runMode === 'pr-regression' ? 'regression' : 'smoke';
+    reportUrl = `${baseUrl}/${subfolder}/${runTimestamp}/`;
+  } else {
+    // fallback to GitHub Actions run page
+    reportUrl = process.env.GITHUB_SERVER_URL 
+      ? `${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`
+      : baseUrl;
+  }
 
   const card: AdaptiveCard = {
     type: 'AdaptiveCard',
