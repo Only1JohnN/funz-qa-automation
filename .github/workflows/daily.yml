@@ -21,7 +21,8 @@ jobs:
       - run: npx playwright install --with-deps
 
       - name: Set timestamp
-        run: echo "RUN_TIMESTAMP=$(date +'%Y-%m-%d_%H-%M-%S')" >> $GITHUB_ENV
+        id: set-timestamp
+        run: echo "timestamp=$(date +'%Y-%m-%d_%H-%M-%S')" >> $GITHUB_OUTPUT
 
       - name: Run smoke tests
         run: npx playwright test --grep "@smoke" --reporter=html,github,./tests/reporters/teamsReporter.ts
@@ -34,7 +35,7 @@ jobs:
           GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
           GITHUB_RUN_ID: ${{ github.run_id }}
           GITHUB_SERVER_URL: ${{ github.server_url }}
-          RUN_TIMESTAMP: ${{ env.RUN_TIMESTAMP }}
+          RUN_TIMESTAMP: ${{ steps.set-timestamp.outputs.timestamp }}
 
       - uses: actions/upload-artifact@v4
         if: always()
@@ -45,21 +46,56 @@ jobs:
       - name: Prepare gh-pages content (smoke)
         if: always()
         run: |
-          TIMESTAMP="${{ env.RUN_TIMESTAMP }}"
+          TIMESTAMP="${{ steps.set-timestamp.outputs.timestamp }}"
           mkdir -p gh-pages-content/smoke/$TIMESTAMP
           cp -r playwright-report/* gh-pages-content/smoke/$TIMESTAMP/
           touch gh-pages-content/smoke/$TIMESTAMP/.nojekyll
-          # The root index.html will be updated by regression workflow as well.
-          # To avoid conflicts, we also update the root index here (redundant but safe)
-          # We'll create a simple symlink or just rely on regression workflow to update it.
-          # But to ensure smoke runs appear even if regression never runs, we update index similarly.
-          # (Simpler: let the smoke workflow also rebuild the root index – but careful with concurrency)
-          # For simplicity, we only deploy the smoke folder and rely on regression workflow to rebuild index.
-          # However, the first smoke run before any regression would have no index. So we add a minimal index:
-          if [ ! -f gh-pages-content/index.html ]; then
-            echo "<!DOCTYPE html><html><head><title>Reports</title></head><body><h1>Test Reports</h1><p>Smoke runs: <a href='smoke/'>smoke/</a></p></body></html>" > gh-pages-content/index.html
-            touch gh-pages-content/.nojekyll
-          fi
+
+          # Build/update root index.html (only smoke runs, since regression workflow handles full index)
+          cat > gh-pages-content/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <title>Playwright Test Reports</title>
+            <meta charset="UTF-8">
+            <style>
+              body { font-family: sans-serif; margin: 20px; background: #f0f2f5; }
+              .container { max-width: 1200px; margin: auto; background: white; padding: 20px; border-radius: 8px; }
+              h1 { color: #2c3e50; }
+              .section { margin-bottom: 30px; }
+              .run-list { list-style: none; padding: 0; }
+              .run-list li { margin: 8px 0; padding: 8px; background: #f8f9fa; border-radius: 6px; }
+              a { color: #3498db; text-decoration: none; }
+              a:hover { text-decoration: underline; }
+            </style>
+          </head>
+          <body>
+            <div class="container">
+              <h1>📊 Playwright Test Reports</h1>
+              <div class="section">
+                <h2>🔥 Smoke Runs (Daily)</h2>
+                <ul class="run-list">
+          EOF
+
+          # List smoke runs (newest first)
+          for dir in $(ls -d gh-pages-content/smoke/20*-*-*_*-*-* 2>/dev/null | sort -r); do
+            name=$(basename "$dir")
+            echo "<li><a href='smoke/$name/'>$name</a></li>" >> gh-pages-content/index.html
+          done
+
+          cat >> gh-pages-content/index.html << 'EOF'
+                </ul>
+              </div>
+              <div class="section">
+                <h2>🧪 Regression Runs</h2>
+                <p>Regression reports are updated by PR workflows. <a href="https://github.com/${{ github.repository }}/actions">View Actions</a> for latest runs.</p>
+              </div>
+            </div>
+          </body>
+          </html>
+          EOF
+
+          touch gh-pages-content/.nojekyll
 
       - name: Deploy to GitHub Pages
         if: always()
@@ -75,4 +111,4 @@ jobs:
         if: always()
         run: |
           REPO_NAME="${GITHUB_REPOSITORY#*/}"
-          echo "✅ Smoke report: https://${{ github.repository_owner }}.github.io/$REPO_NAME/smoke/${{ env.RUN_TIMESTAMP }}/"
+          echo "✅ Smoke report: https://${{ github.repository_owner }}.github.io/$REPO_NAME/smoke/${{ steps.set-timestamp.outputs.timestamp }}/"

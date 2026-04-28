@@ -22,11 +22,11 @@ jobs:
       - run: npx playwright install --with-deps
 
       - name: Set timestamp
-        run: echo "RUN_TIMESTAMP=$(date +'%Y-%m-%d_%H-%M-%S')" >> $GITHUB_ENV
+        id: set-timestamp
+        run: echo "timestamp=$(date +'%Y-%m-%d_%H-%M-%S')" >> $GITHUB_OUTPUT
 
       - name: Run Playwright tests
         run: npx playwright test --reporter=html,github,./tests/reporters/teamsReporter.ts
-        continue-on-error: true
         env:
           RUN_MODE: pr-regression
           TEAMS_WEBHOOK_URL: ${{ secrets.TEAMS_WEBHOOK_URL }}
@@ -35,7 +35,7 @@ jobs:
           GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
           GITHUB_RUN_ID: ${{ github.run_id }}
           GITHUB_SERVER_URL: ${{ github.server_url }}
-          RUN_TIMESTAMP: ${{ env.RUN_TIMESTAMP }}
+          RUN_TIMESTAMP: ${{ steps.set-timestamp.outputs.timestamp }}
 
       - uses: actions/upload-artifact@v4
         if: always()
@@ -59,7 +59,7 @@ jobs:
       - name: Prepare gh-pages content (regression + root index)
         if: always()
         run: |
-          TIMESTAMP="${{ env.RUN_TIMESTAMP }}"
+          TIMESTAMP="${{ steps.set-timestamp.outputs.timestamp }}"
           mkdir -p gh-pages-content/regression/$TIMESTAMP
           cp -r playwright-report/* gh-pages-content/regression/$TIMESTAMP/
           touch gh-pages-content/regression/$TIMESTAMP/.nojekyll
@@ -134,4 +134,4 @@ jobs:
         if: always()
         run: |
           REPO_NAME="${GITHUB_REPOSITORY#*/}"
-          echo "✅ Report: https://${{ github.repository_owner }}.github.io/$REPO_NAME/regression/${{ env.RUN_TIMESTAMP }}/"
+          echo "✅ Report: https://${{ github.repository_owner }}.github.io/$REPO_NAME/regression/${{ steps.set-timestamp.outputs.timestamp }}/"
