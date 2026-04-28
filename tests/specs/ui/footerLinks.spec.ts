@@ -23,8 +23,11 @@ test.describe('Footer Links Verification @regression', () => {
     { name: 'Privacy Policy', click: (f: FooterLinks) => f.clickPrivacyPolicy() },
   ];
 
-  for (const link of footerLinks) {
-    test(`TC-01: Should navigate to ${link.name} page with correct URL @smoke`, async ({ page }) => {
+  // Main footer links: TC-16 to TC-26
+  for (let i = 0; i < footerLinks.length; i++) {
+    const link = footerLinks[i];
+    const tcNumber = 16 + i;
+    test(`TC-${tcNumber}: Should navigate to ${link.name} page with correct URL @smoke`, async ({ page }) => {
       const footer = new FooterLinks(page);
       await link.click(footer);
     });
@@ -41,21 +44,23 @@ test.describe('Footer Links Verification @regression', () => {
     { name: 'Spotify', click: (f: FooterLinks) => f.clickSpotify() },
   ];
 
-  for (const social of newTabSocialLinks) {
-    test(`TC-01: Should open ${social.name} link in a new tab @smoke`, async ({ page, context }) => {
+  // Social new-tab links: TC-27 to TC-33
+  for (let i = 0; i < newTabSocialLinks.length; i++) {
+    const social = newTabSocialLinks[i];
+    const tcNumber = 27 + i;
+    test(`TC-${tcNumber}: Should open ${social.name} link in a new tab @smoke`, async ({ page, context }) => {
       const footer = new FooterLinks(page);
       const [newPage] = await Promise.all([
         context.waitForEvent('page'),
         social.click(footer),
       ]);
-      // Check that a new page was opened (link works)
       expect(newPage).toBeDefined();
       await newPage.close();
     });
   }
 
-  // TikTok opens in the SAME TAB – test separately
-  test('should navigate to TikTok page in the same tab @smoke', async ({ page }) => {
+  // TikTok opens in the SAME TAB – TC-34
+  test('TC-34: Should navigate to TikTok page in the same tab @smoke', async ({ page }) => {
     const footer = new FooterLinks(page);
     await footer.clickTiktok();
     // URL assertion already inside clickTiktok method (expect(page).toHaveURL(/tiktok\.com/))

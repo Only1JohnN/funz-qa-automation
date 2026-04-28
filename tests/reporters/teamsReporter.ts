@@ -1,11 +1,12 @@
 import type { FullConfig, FullResult, Reporter, Suite, TestCase, TestResult } from '@playwright/test/reporter';
 import { sendTeamsReport } from '../utils/teamsNotifier';
+import { getTestContext } from '../utils/testContext';
 
 class TeamsReporter implements Reporter {
   private passed = 0;
   private failed = 0;
   private skipped = 0;
-  private firstFailure: { title: string; error: string } | undefined;
+  private firstFailure: { title: string; description: string; impact: string; error: string } | undefined;
   private startTime = 0;
 
   onBegin(config: FullConfig, suite: Suite) {
@@ -17,9 +18,16 @@ class TeamsReporter implements Reporter {
     else if (result.status === 'failed') {
       this.failed++;
       if (!this.firstFailure) {
+        const context = getTestContext(test.title);
+        const description = context?.description || test.title;
+        const impact = context?.impact || 'Unknown impact';
+        const errorMsg = result.error?.message?.split('\n')[0] || 'No error message';
+
         this.firstFailure = {
           title: test.title,
-          error: result.error?.message?.split('\n')[0] || 'Unknown error'
+          description,
+          impact,
+          error: errorMsg
         };
       }
     } else if (result.status === 'skipped') this.skipped++;

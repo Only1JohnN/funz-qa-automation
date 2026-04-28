@@ -1,6 +1,38 @@
 import 'dotenv/config';
 import { RUN_MODE, shouldSendReport } from './runMode';
 
+interface TextBlock {
+  type: 'TextBlock';
+  text: string;
+  weight?: string;
+  size?: string;
+  color?: string;
+  wrap?: boolean;
+}
+
+interface Fact {
+  title: string;
+  value: string;
+}
+
+interface FactSet {
+  type: 'FactSet';
+  facts: Fact[];
+}
+
+interface ActionOpenUrl {
+  type: 'Action.OpenUrl';
+  title: string;
+  url: string;
+}
+
+interface AdaptiveCard {
+  type: 'AdaptiveCard';
+  version: string;
+  body: (TextBlock | FactSet)[];
+  actions: ActionOpenUrl[];
+}
+
 export async function sendTeamsReport(summary: any) {
   if (!shouldSendReport) {
     console.log(`🔕 No Teams report (RUN_MODE=${RUN_MODE})`);
@@ -21,7 +53,7 @@ export async function sendTeamsReport(summary: any) {
   ? `https://${process.env.GITHUB_REPOSITORY_OWNER}.github.io/${process.env.GITHUB_REPOSITORY}/${RUN_MODE}-report/`
   : 'https://github.com';
 
-  const card = {
+  const card: AdaptiveCard = {
     type: 'AdaptiveCard',
     version: '1.4',
     body: [
@@ -54,11 +86,13 @@ export async function sendTeamsReport(summary: any) {
   };
 
   if (summary.firstFailure) {
-    card.body.push(
-      { type: 'TextBlock', text: '❌ First Failure', weight: 'Bolder', size: 'Medium', color: 'Attention' },
-      { type: 'TextBlock', text: `**${summary.firstFailure.title}**\n${summary.firstFailure.error}`, weight: 'Default', size: 'Default', color: 'Default' }
-    );
-  }
+  card.body.push(
+    { type: 'TextBlock', text: '❌ Failure Details', weight: 'Bolder', size: 'Medium', color: 'Attention' },
+    { type: 'TextBlock', text: `**What:** ${summary.firstFailure.description}`, wrap: true },
+    { type: 'TextBlock', text: `**Impact:** ${summary.firstFailure.impact}`, wrap: true },
+    { type: 'TextBlock', text: `**Error:** ${summary.firstFailure.error}`, wrap: true }
+  );
+}
 
   const response = await fetch(webhookUrl, {
     method: 'POST',
