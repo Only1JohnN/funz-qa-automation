@@ -1,0 +1,46 @@
+# .github/workflows/pr.yml
+name: Full Regression on PR
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - run: npm ci
+      - run: npx playwright install --with-deps
+      - run: npx playwright test --reporter=html,github  # github reporter adds annotations
+        continue-on-error: true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report-${{ github.run_id }}
+          path: playwright-report/
+      - name: Comment on PR
+        uses: actions/github-script@v7
+        if: failure()
+        with:
+          script: |
+            const runId = context.runId;
+            const reportUrl = `${process.env.GITHUB_SERVER_URL}/${context.repo.owner}/${context.repo.repo}/actions/runs/${runId}`;
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `❌ Regression tests failed. [Download HTML report](${reportUrl})`
+            });
+      - run: exit ${{ job.status == 'failure' && 1 || 0 }}
+      - name: Deploy regression report
+        if: always()
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            publish_dir: ./playwright-report
+            destination_dir: regression-report
+            keep_files: true   # keep previous reports for different branches

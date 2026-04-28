@@ -8,7 +8,7 @@ import { PasswordResetPage } from '../../pages/UI/PasswordResetPage';
 import { testConfig } from '../../config/testConfig';
 import { testUsers } from '../../fixtures/testData';
 
-test.describe('Authentication & Navigation Flows', () => {
+test.describe('Authentication & Navigation Flows @regression', () => {
   let homePage: HomePage;
   let registerPage: RegisterPage;
   let loginPage: LoginPage;
@@ -23,21 +23,21 @@ test.describe('Authentication & Navigation Flows', () => {
     resetPage = new PasswordResetPage(page);
   });
 
-  test('TC-01: User can select "User" role and reach signup form', async () => {
+  test('TC-01: User can select "User" role and reach signup form @smoke', async () => {
     await homePage.clickRegister();
     await registerPage.selectUserRole();
     await registerPage.clickContinue();
     await registerPage.assertOnUserSignupPage();
   });
 
-  test('TC-02: User can select "Organizer" role and reach signup form', async () => {
+  test('TC-02: User can select "Organizer" role and reach signup form @smoke', async () => {
     await homePage.clickRegister();
     await registerPage.selectOrganizerRole();
     await registerPage.clickContinue();
     await registerPage.assertOnOrganizerSignupPage();
   });
 
-  test('TC-03: Back button returns from user signup to role selection', async () => {
+  test('TC-03: Back button returns from user signup to role selection @smoke', async () => {
     await homePage.clickRegister();
     await registerPage.selectUserRole();
     await registerPage.clickContinue();
@@ -47,14 +47,14 @@ test.describe('Authentication & Navigation Flows', () => {
     await registerPage.assertOnRoleSelectionPage();
   });
 
-  test('TC-04: "Reset it" link leads to password reset page', async () => {
+  test('TC-04: "Reset it" link leads to password reset page @smoke', async () => {
     await homePage.clickLogin();
     await loginPage.assertOnLoginPage();
     await loginPage.clickResetPassword();
     await resetPage.assertOnResetPage();
   });
 
-  test('TC-05: Navigation between Login and Register pages works', async () => {
+  test('TC-05: Navigation between Login and Register pages works @smoke', async () => {
     // Register → Login
     await homePage.clickRegister();
     await registerPage.assertOnRoleSelectionPage();
@@ -66,7 +66,7 @@ test.describe('Authentication & Navigation Flows', () => {
     await registerPage.assertOnRoleSelectionPage();
   });
 
-  test('TC-06: User can see error message with invalid credentials', async ({ page }) => {
+  test('TC-06: User can see error message with invalid credentials @smoke', async ({ page }) => {
     // Navigate to login
     await homePage.clickLogin();
     await loginPage.assertOnLoginPage();
@@ -79,7 +79,7 @@ test.describe('Authentication & Navigation Flows', () => {
     await loginPage.assertErrorMessage();
   });
 
-  test('TC-07: User can successfully log in with valid credentials', async ({ page }) => {
+  test('TC-07: User can successfully log in with valid credentials @smoke', async ({ page }) => {
     // This test requires a valid staging account – set via .env
     test.skip(!process.env.TEST_USER_EMAIL, 'No valid test credentials provided');
 
@@ -92,7 +92,7 @@ test.describe('Authentication & Navigation Flows', () => {
     await loginPage.assertSuccessfulLogin();
   });
 
-  // test('TC-08: Complete user registration flow (happy path)', async ({ page }) => {
+  // test('TC-08: Complete user registration flow (happy path) @regression', async ({ page }) => {
   //   const { user } = testUsers; // dynamic email to avoid duplicates
     
   //   await homePage.clickRegister();
