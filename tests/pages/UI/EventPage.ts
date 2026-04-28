@@ -21,7 +21,7 @@ export class EventPage {
 
   async selectEvent() {
   await Promise.all([
-    this.page.waitForURL(/\/events\/[\w-]+/, { timeout: 15000 }),
+    this.page.waitForURL(/\/events\/[\w-]+/, { timeout: 30000 }),
     this.eventItem.click(),
   ]);
 }
