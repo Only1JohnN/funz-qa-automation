@@ -28,6 +28,26 @@ export class EventPage {
     this.page.waitForURL(/\/events\/[\w-]+/, { timeout: 30000 }),
     this.eventItem.click(),
   ]);
+  await this.handleCountryMismatch();
+}
+
+  async handleCountryMismatch() {
+  await this.page.waitForLoadState('networkidle');
+  
+  const currentURL = this.page.url();
+  const isUSContext = currentURL.includes('country=US');
+
+  if (!isUSContext) return;
+
+  const noEventsText = this.page.getByText(/No upcoming Events/i);
+
+  if (await noEventsText.isVisible()) {
+    await this.page.getByRole('combobox', { name: 'select event location' }).click();
+    await this.page.getByRole('option', { name: 'Nigeria' }).click();
+
+    // Optional: wait for reload / URL correction
+    await this.page.waitForLoadState('networkidle');
+  }
 }
 
   async increaseTicketQuantity() {
