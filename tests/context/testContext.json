@@ -1,0 +1,172 @@
+{
+  "TC-01: User can select User role and reach signup form": {
+    "description": "Verify that a new user can choose 'Sign up as a User' and proceed to the user registration form.",
+    "impact": "User registration flow broken",
+    "module": "Authentication"
+  },
+  "TC-02: User can select Organizer role and reach signup form": {
+    "description": "Verify that a new user can choose 'Sign up as an Organizer' and reach the organizer signup page.",
+    "impact": "Organizer registration blocked",
+    "module": "Authentication"
+  },
+  "TC-03: Back button returns from user signup to role selection": {
+    "description": "Ensure the 'Back' button on the user signup page returns to role selection correctly.",
+    "impact": "Navigation broken in registration flow",
+    "module": "UI Navigation"
+  },
+  "TC-04: Reset it link leads to password reset page": {
+    "description": "Check that clicking 'Reset it' on the login page opens the password reset page.",
+    "impact": "Password reset flow inaccessible",
+    "module": "Authentication"
+  },
+  "TC-05: Navigation between Login and Register pages works": {
+    "description": "Verify that users can toggle between Login and Sign up pages without errors.",
+    "impact": "User cannot switch between auth forms",
+    "module": "UI Navigation"
+  },
+  "TC-06: User can see error message with invalid credentials": {
+    "description": "Attempt login with invalid email/password and verify an error message is shown.",
+    "impact": "Users receive no feedback on login failure",
+    "module": "Authentication"
+  },
+  "TC-07: User can successfully log in with valid credentials": {
+    "description": "Log in using valid staging credentials and verify redirection to dashboard.",
+    "impact": "Valid users cannot access their account",
+    "module": "Authentication"
+  },
+  "TC-08: Complete user registration flow (happy path)": {
+    "description": "Full user registration with valid data should succeed and redirect to dashboard.",
+    "impact": "New users cannot register",
+    "module": "Authentication"
+  },
+  "TC-09: Event selection and navigation": {
+    "description": "User can navigate from Events page to a specific event details page.",
+    "impact": "Event browsing broken – users cannot see event details.",
+    "module": "Event Discovery"
+  },
+  "TC-10: Ticket quantity increase": {
+    "description": "User can increase the number of tickets for an event using the quantity button.",
+    "impact": "Ticket purchase flow blocked at quantity selection.",
+    "module": "Ticket Booking"
+  },
+  "TC-11: Guest checkout initiation": {
+    "description": "After selecting tickets, the 'Guest Checkout' option appears and leads to the guest form.",
+    "impact": "Guest checkout unavailable, forcing account creation.",
+    "module": "Checkout"
+  },
+  "TC-12: Guest checkout form submission": {
+    "description": "Guest can fill all required fields (name, email, phone) and submit the order.",
+    "impact": "Guest users cannot complete purchase.",
+    "module": "Checkout"
+  },
+  "TC-13: Simulated payment success": {
+    "description": "User can pay using the test ‘Success - 1111’ card and proceed to confirmation.",
+    "impact": "Payment gateway integration broken.",
+    "module": "Payment"
+  },
+  "TC-14: Success confirmation page": {
+    "description": "After successful payment, the congratulatory success page appears.",
+    "impact": "Order confirmation not shown – users may think purchase failed.",
+    "module": "Post-Purchase"
+  },
+  "TC-15: Ticket viewing after purchase": {
+    "description": "User can view the purchased ticket details from the success page.",
+    "impact": "Ticket retrieval broken, users cannot access tickets.",
+    "module": "Ticket Management"
+  },
+  "TC-16: Footer link - Funz App": {
+    "description": "Clicking 'Funz App' in the footer navigates to the correct page.",
+    "impact": "Footer navigation broken",
+    "module": "Footer Navigation"
+  },
+  "TC-17: Footer link - Send and Receive Money": {
+    "description": "Clicking 'Send and Receive Money' in the footer navigates to the correct page.",
+    "impact": "Footer navigation broken",
+    "module": "Footer Navigation"
+  },
+  "TC-18: Footer link - Pay Bills": {
+    "description": "Clicking 'Pay Bills' in the footer navigates to the correct page.",
+    "impact": "Footer navigation broken",
+    "module": "Footer Navigation"
+  },
+  "TC-19: Footer link - Savings Calculator": {
+    "description": "Clicking 'Savings Calculator' in the footer navigates to the correct page.",
+    "impact": "Footer navigation broken",
+    "module": "Footer Navigation"
+  },
+  "TC-20: Footer link - Blog": {
+    "description": "Clicking 'Blog' in the footer navigates to the correct page.",
+    "impact": "Footer navigation broken",
+    "module": "Footer Navigation"
+  },
+  "TC-21: Footer link - Careers": {
+    "description": "Clicking 'Careers' in the footer navigates to the correct page.",
+    "impact": "Footer navigation broken",
+    "module": "Footer Navigation"
+  },
+  "TC-22: Footer link - Reach out to us": {
+    "description": "Clicking 'Reach out to us' in the footer navigates to the correct page.",
+    "impact": "Footer navigation broken",
+    "module": "Footer Navigation"
+  },
+  "TC-23: Footer link - FAQs": {
+    "description": "Clicking 'FAQs' in the footer navigates to the correct page.",
+    "impact": "Footer navigation broken",
+    "module": "Footer Navigation"
+  },
+  "TC-24: Footer link - About": {
+    "description": "Clicking 'About' in the footer navigates to the correct page.",
+    "impact": "Footer navigation broken",
+    "module": "Footer Navigation"
+  },
+  "TC-25: Footer link - Terms and Conditions": {
+    "description": "Clicking 'Terms and Conditions' in the footer navigates to the correct page.",
+    "impact": "Footer navigation broken",
+    "module": "Footer Navigation"
+  },
+  "TC-26: Footer link - Privacy Policy": {
+    "description": "Clicking 'Privacy Policy' in the footer navigates to the correct page.",
+    "impact": "Footer navigation broken",
+    "module": "Footer Navigation"
+  },
+  "TC-27: Social link - Facebook (new tab)": {
+    "description": "Clicking Facebook icon in footer opens the link in a new tab.",
+    "impact": "Social media link broken",
+    "module": "Footer Navigation"
+  },
+  "TC-28: Social link - Twitter (new tab)": {
+    "description": "Clicking Twitter icon in footer opens the link in a new tab.",
+    "impact": "Social media link broken",
+    "module": "Footer Navigation"
+  },
+  "TC-29: Social link - Instagram (new tab)": {
+    "description": "Clicking Instagram icon in footer opens the link in a new tab.",
+    "impact": "Social media link broken",
+    "module": "Footer Navigation"
+  },
+  "TC-30: Social link - LinkedIn (new tab)": {
+    "description": "Clicking LinkedIn icon in footer opens the link in a new tab.",
+    "impact": "Social media link broken",
+    "module": "Footer Navigation"
+  },
+  "TC-31: Social link - YouTube (new tab)": {
+    "description": "Clicking YouTube icon in footer opens the link in a new tab.",
+    "impact": "Social media link broken",
+    "module": "Footer Navigation"
+  },
+  "TC-32: Social link - Snapchat (new tab)": {
+    "description": "Clicking Snapchat icon in footer opens the link in a new tab.",
+    "impact": "Social media link broken",
+    "module": "Footer Navigation"
+  },
+  "TC-33: Social link - Spotify (new tab)": {
+    "description": "Clicking Spotify icon in footer opens the link in a new tab.",
+    "impact": "Social media link broken",
+    "module": "Footer Navigation"
+  },
+  "TC-34: Social link - TikTok (same tab)": {
+    "description": "Clicking TikTok icon in footer navigates to TikTok page in the same tab.",
+    "impact": "Social media link broken",
+    "module": "Footer Navigation"
+  }
+}

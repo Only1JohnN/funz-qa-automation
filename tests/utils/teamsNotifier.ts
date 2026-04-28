@@ -8,6 +8,7 @@ interface TextBlock {
   size?: string;
   color?: string;
   wrap?: boolean;
+  isSubtle?: boolean;
 }
 
 interface Fact {
