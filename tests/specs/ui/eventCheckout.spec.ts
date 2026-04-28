@@ -24,10 +24,10 @@ test.describe('Event Checkout Flows @regression', () => {
     paymentPage = new PaymentPage(page);
     successPage = new SuccessPage(page);
     ticketPage = new TicketPage(page);
+    await homePage.clickAcceptCookies();
   });
 
   test('TC-08: Event selection and navigation @smoke', async ({ page }) => {
-    await homePage.clickAcceptCookies();
     await eventPage.gotoEvents();
     await eventPage.selectEvent();
     // Additional assertion: event title visible
@@ -35,7 +35,6 @@ test.describe('Event Checkout Flows @regression', () => {
   });
 
   test('TC-09: Ticket quantity increase @smoke', async ({ page }) => {
-    await homePage.clickAcceptCookies();
     await eventPage.gotoEvents();
     await eventPage.selectEvent();
     await eventPage.increaseTicketQuantity();
@@ -44,7 +43,6 @@ test.describe('Event Checkout Flows @regression', () => {
   });
 
   test('TC-10: Guest checkout initiation @smoke', async ({ page }) => {
-    await homePage.clickAcceptCookies();
     await eventPage.gotoEvents();
     await eventPage.selectEvent();
     await eventPage.increaseTicketQuantity();
@@ -56,7 +54,6 @@ test.describe('Event Checkout Flows @regression', () => {
   test('TC-11: Guest checkout form submission @regression', async ({ page }) => {
     const guestuser = testUsers.guestuser();
 
-    await homePage.clickAcceptCookies();
     await eventPage.gotoEvents();
     await eventPage.selectEvent();
     await eventPage.increaseTicketQuantity();
@@ -74,7 +71,6 @@ test.describe('Event Checkout Flows @regression', () => {
     // For independence, we replicate necessary steps.
     const guestuser = testUsers.guestuser();
 
-    await homePage.clickAcceptCookies();
     await eventPage.gotoEvents();
     await eventPage.selectEvent();
     await eventPage.increaseTicketQuantity();
@@ -96,7 +92,6 @@ test.describe('Event Checkout Flows @regression', () => {
   test('TC-13: Success confirmation page @regression', async ({ page }) => {
     // Navigate directly to success page (or use previous steps)
     await page.goto('https://staging.funzweb.com/guest/success?token=dummy');
-    await homePage.clickAcceptCookies();
     await successPage.assertSuccessPage();
   });
 
@@ -104,7 +99,6 @@ test.describe('Event Checkout Flows @regression', () => {
     // Simulate a completed purchase: go to success page with valid token? 
     // For testing, we can recreate the flow up to success.
     const guestuser = testUsers.guestuser();
-    await homePage.clickAcceptCookies();
     await eventPage.gotoEvents();
     await eventPage.selectEvent();
     await eventPage.increaseTicketQuantity();

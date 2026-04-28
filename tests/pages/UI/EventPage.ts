@@ -6,6 +6,8 @@ export class EventPage {
   readonly eventItem: Locator;
   readonly increaseQtyButton: Locator;
   readonly getTicketsButton: Locator;
+  readonly addToCartButton: Locator;
+  readonly quantityError: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -13,6 +15,8 @@ export class EventPage {
     this.eventItem = page.getByRole('link', { name: 'Access Pass Event Access Pass' }).first();
     this.increaseQtyButton = page.getByRole('button', { name: 'increase qty' }).nth(1);
     this.getTicketsButton = page.getByRole('button', { name: 'Get Tickets' });
+    this.addToCartButton = page.getByRole('button', { name: 'Add to cart' });
+    this.quantityError = page.locator('div').filter({ hasText: 'Please select your ticket' });
   }
 
   async gotoEvents() {
@@ -34,5 +38,13 @@ export class EventPage {
 
   async clickGetTickets() {
     await this.getTicketsButton.click();
+  }
+
+  async clickAddToCart() {
+  await this.addToCartButton.click();
+  }
+  
+  async assertQuantityErrorVisible() {
+    await expect(this.quantityError.first()).toBeVisible();
   }
 }

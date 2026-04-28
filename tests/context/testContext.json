@@ -168,5 +168,25 @@
     "description": "Clicking TikTok icon in footer navigates to TikTok page in the same tab.",
     "impact": "Social media link broken",
     "module": "Footer Navigation"
+  },
+  "TC-35: Unauthenticated user can not add ticket to cart": {
+  "description": "Guest user can select an event, choose ticket quantity, and add to cart.",
+  "impact": "Unauthenticated users cannot add items to cart – lost sales.",
+  "module": "Cart (Unauthenticated)"
+  },
+  "TC-36: Authenticated user can add ticket to cart and view cart": {
+    "description": "Logged-in user can add an event ticket and open cart page.",
+    "impact": "Authenticated users cannot manage cart items.",
+    "module": "Cart (Authenticated)"
+  },
+  "TC-37: Authenticated user can proceed to checkout from cart": {
+    "description": "User can click 'Complete Checkout' in cart and reach checkout page.",
+    "impact": "Checkout flow broken – users cannot purchase.",
+    "module": "Cart (Authenticated)"
+  },
+  "TC-38: Authenticated user can clear cart successfully": {
+    "description": "User can remove all items from cart using Clear Order button.",
+    "impact": "Cart cannot be emptied – users stuck with unwanted items.",
+    "module": "Cart (Authenticated)"
   }
 }
