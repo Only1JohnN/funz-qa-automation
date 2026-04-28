@@ -3,7 +3,7 @@
 import { test, expect } from '@playwright/test';
 import { FooterLinks } from '../../pages/UI/FooterLinks';
 
-test.describe('Footer Links Verification @smoke', () => {
+test.describe('Footer Links Verification @regression', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('https://staging.funzweb.com/');
   });
