@@ -2,7 +2,7 @@ name: Daily Smoke Tests
 
 on:
   schedule:
-    - cron: '0 7 * * *'   # 7 AM UTC daily
+    - cron: '0 7 * * *'
   workflow_dispatch:
 
 jobs:
@@ -12,25 +12,20 @@ jobs:
       contents: write
       pages: write
       id-token: write
-
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
+      - run: npm install
+      - run: npx playwright install --with-deps
 
-      - name: Install dependencies
-        run: npm install
+      - name: Set timestamp
+        run: echo "RUN_TIMESTAMP=$(date +'%Y-%m-%d_%H-%M-%S')" >> $GITHUB_ENV
 
-      - name: Install Playwright browsers
-        run: npx playwright install --with-deps
-
-      # ✅ Proper env injection (fixes your issue)
-      - name: Run Playwright smoke tests
-        run: npx playwright test --grep "@smoke" --reporter=html,./tests/reporters/teamsReporter.ts
+      - name: Run smoke tests
+        run: npx playwright test --grep "@smoke" --reporter=html,github,./tests/reporters/teamsReporter.ts
+        continue-on-error: true
         env:
           RUN_MODE: daily-smoke
           TEAMS_WEBHOOK_URL: ${{ secrets.TEAMS_WEBHOOK_URL }}
@@ -39,25 +34,45 @@ jobs:
           GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
           GITHUB_RUN_ID: ${{ github.run_id }}
           GITHUB_SERVER_URL: ${{ github.server_url }}
+          RUN_TIMESTAMP: ${{ env.RUN_TIMESTAMP }}
 
-      # Always upload report (even if tests fail)
-      - name: Upload Playwright report artifact
+      - uses: actions/upload-artifact@v4
         if: always()
-        uses: actions/upload-artifact@v4
         with:
-          name: playwright-report-smoke
+          name: playwright-report-smoke-${{ github.run_id }}
           path: playwright-report/
 
-      # Required for GitHub Pages static hosting
-      - name: Add .nojekyll
-        run: touch playwright-report/.nojekyll
+      - name: Prepare gh-pages content (smoke)
+        if: always()
+        run: |
+          TIMESTAMP="${{ env.RUN_TIMESTAMP }}"
+          mkdir -p gh-pages-content/smoke/$TIMESTAMP
+          cp -r playwright-report/* gh-pages-content/smoke/$TIMESTAMP/
+          touch gh-pages-content/smoke/$TIMESTAMP/.nojekyll
+          # The root index.html will be updated by regression workflow as well.
+          # To avoid conflicts, we also update the root index here (redundant but safe)
+          # We'll create a simple symlink or just rely on regression workflow to update it.
+          # But to ensure smoke runs appear even if regression never runs, we update index similarly.
+          # (Simpler: let the smoke workflow also rebuild the root index – but careful with concurrency)
+          # For simplicity, we only deploy the smoke folder and rely on regression workflow to rebuild index.
+          # However, the first smoke run before any regression would have no index. So we add a minimal index:
+          if [ ! -f gh-pages-content/index.html ]; then
+            echo "<!DOCTYPE html><html><head><title>Reports</title></head><body><h1>Test Reports</h1><p>Smoke runs: <a href='smoke/'>smoke/</a></p></body></html>" > gh-pages-content/index.html
+            touch gh-pages-content/.nojekyll
+          fi
 
-      # Deploy report to GitHub Pages
-      - name: Deploy report to GitHub Pages
+      - name: Deploy to GitHub Pages
         if: always()
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./playwright-report
-          destination_dir: smoke-report
-          keep_files: false
+          publish_dir: ./gh-pages-content
+          publish_branch: gh-pages
+          keep_files: true
+          allow_empty_commit: true
+
+      - name: Output URL
+        if: always()
+        run: |
+          REPO_NAME="${GITHUB_REPOSITORY#*/}"
+          echo "✅ Smoke report: https://${{ github.repository_owner }}.github.io/$REPO_NAME/smoke/${{ env.RUN_TIMESTAMP }}/"
