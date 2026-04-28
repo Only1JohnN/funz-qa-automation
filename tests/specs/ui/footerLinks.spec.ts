@@ -3,7 +3,7 @@
 import { test, expect } from '@playwright/test';
 import { FooterLinks } from '../../pages/UI/FooterLinks';
 
-test.describe('Footer Links Verification', () => {
+test.describe('Footer Links Verification @smoke', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('https://staging.funzweb.com/');
   });
@@ -24,7 +24,7 @@ test.describe('Footer Links Verification', () => {
   ];
 
   for (const link of footerLinks) {
-    test(`should navigate to ${link.name} page with correct URL`, async ({ page }) => {
+    test(`TC-01: Should navigate to ${link.name} page with correct URL @smoke`, async ({ page }) => {
       const footer = new FooterLinks(page);
       await link.click(footer);
     });
@@ -42,7 +42,7 @@ test.describe('Footer Links Verification', () => {
   ];
 
   for (const social of newTabSocialLinks) {
-    test(`should open ${social.name} link in a new tab`, async ({ page, context }) => {
+    test(`TC-01: Should open ${social.name} link in a new tab @smoke`, async ({ page, context }) => {
       const footer = new FooterLinks(page);
       const [newPage] = await Promise.all([
         context.waitForEvent('page'),
@@ -56,7 +56,7 @@ test.describe('Footer Links Verification', () => {
   }
 
   // TikTok opens in the SAME TAB – test separately
-  test('should navigate to TikTok page in the same tab', async ({ page }) => {
+  test('should navigate to TikTok page in the same tab @smoke', async ({ page }) => {
     const footer = new FooterLinks(page);
     await footer.clickTiktok();
     // URL assertion already inside clickTiktok method (expect(page).toHaveURL(/tiktok\.com/))

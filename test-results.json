@@ -11,7 +11,7 @@
     "grepInvert": null,
     "maxFailures": 0,
     "metadata": {
-      "actualWorkers": 1
+      "actualWorkers": 2
     },
     "preserveOutput": "always",
     "projects": [
@@ -20,7 +20,7 @@
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
-          "actualWorkers": 1
+          "actualWorkers": 2
         },
         "id": "chromium",
         "name": "chromium",
@@ -36,9 +36,7 @@
     "reporter": [
       [
         "html",
-        {
-          "outputFolder": "playwright-report"
-        }
+        null
       ],
       [
         "json",
@@ -47,7 +45,7 @@
         }
       ],
       [
-        "list",
+        "/Users/mac/funz-qa-automation/tests/reporters/teamsReporter.ts",
         null
       ]
     ],
@@ -65,6 +63,282 @@
   },
   "suites": [
     {
+      "title": "ui/authFlows.spec.ts",
+      "file": "ui/authFlows.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Authentication & Navigation Flows @smoke",
+          "file": "ui/authFlows.spec.ts",
+          "line": 11,
+          "column": 6,
+          "specs": [
+            {
+              "title": "TC-01: User can select \"User\" role and reach signup form @smoke",
+              "ok": true,
+              "tags": [
+                "smoke",
+                "smoke"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 9370,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-27T23:55:07.684Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "45dfc4b132021b83ea50-ac3a9c5513c03be8be0d",
+              "file": "ui/authFlows.spec.ts",
+              "line": 26,
+              "column": 7
+            },
+            {
+              "title": "TC-02: User can select \"Organizer\" role and reach signup form @smoke",
+              "ok": true,
+              "tags": [
+                "smoke",
+                "smoke"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 10227,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-27T23:55:18.438Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "45dfc4b132021b83ea50-1668f8f816c547ff51b1",
+              "file": "ui/authFlows.spec.ts",
+              "line": 33,
+              "column": 7
+            },
+            {
+              "title": "TC-03: Back button returns from user signup to role selection @smoke",
+              "ok": true,
+              "tags": [
+                "smoke",
+                "smoke"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 9163,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-27T23:55:28.691Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "45dfc4b132021b83ea50-519ab9704a748f8a19a1",
+              "file": "ui/authFlows.spec.ts",
+              "line": 40,
+              "column": 7
+            },
+            {
+              "title": "TC-04: \"Reset it\" link leads to password reset page @smoke",
+              "ok": true,
+              "tags": [
+                "smoke",
+                "smoke"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 9670,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-27T23:55:37.906Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "45dfc4b132021b83ea50-a6bdffd9f73d53701d22",
+              "file": "ui/authFlows.spec.ts",
+              "line": 50,
+              "column": 7
+            },
+            {
+              "title": "TC-05: Navigation between Login and Register pages works @smoke",
+              "ok": true,
+              "tags": [
+                "smoke",
+                "smoke"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 9305,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-27T23:55:47.601Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "45dfc4b132021b83ea50-0c9a96c4a2f3283ccb4c",
+              "file": "ui/authFlows.spec.ts",
+              "line": 57,
+              "column": 7
+            },
+            {
+              "title": "TC-06: User can see error message with invalid credentials @smoke",
+              "ok": true,
+              "tags": [
+                "smoke",
+                "smoke"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 13823,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-27T23:55:56.931Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "45dfc4b132021b83ea50-fa449e31cf8dcc17029d",
+              "file": "ui/authFlows.spec.ts",
+              "line": 69,
+              "column": 7
+            },
+            {
+              "title": "TC-07: User can successfully log in with valid credentials @smoke",
+              "ok": true,
+              "tags": [
+                "smoke",
+                "smoke"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 10946,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-27T23:56:10.788Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "45dfc4b132021b83ea50-cde1265340f3cba88593",
+              "file": "ui/authFlows.spec.ts",
+              "line": 82,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
       "title": "ui/footerLinks.spec.ts",
       "file": "ui/footerLinks.spec.ts",
       "column": 0,
@@ -72,15 +346,18 @@
       "specs": [],
       "suites": [
         {
-          "title": "Footer Links Verification",
+          "title": "Footer Links Verification @smoke",
           "file": "ui/footerLinks.spec.ts",
           "line": 6,
           "column": 6,
           "specs": [
             {
-              "title": "should navigate to Funz App page with correct URL",
+              "title": "TC-01: Should navigate to Funz App page with correct URL @smoke",
               "ok": true,
-              "tags": [],
+              "tags": [
+                "smoke",
+                "smoke"
+              ],
               "tests": [
                 {
                   "timeout": 60000,
@@ -90,15 +367,15 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
                       "status": "passed",
-                      "duration": 5923,
+                      "duration": 14785,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-04-27T22:39:38.348Z",
+                      "startTime": "2026-04-27T23:55:07.626Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -106,15 +383,18 @@
                   "status": "expected"
                 }
               ],
-              "id": "cc2325c56b089e371bda-224e734a8c4b5591d167",
+              "id": "cc2325c56b089e371bda-fe696a51f972e90c10bf",
               "file": "ui/footerLinks.spec.ts",
               "line": 27,
               "column": 9
             },
             {
-              "title": "should navigate to Send and Receive Money page with correct URL",
+              "title": "TC-01: Should navigate to Send and Receive Money page with correct URL @smoke",
               "ok": true,
-              "tags": [],
+              "tags": [
+                "smoke",
+                "smoke"
+              ],
               "tests": [
                 {
                   "timeout": 60000,
@@ -124,15 +404,15 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
                       "status": "passed",
-                      "duration": 8693,
+                      "duration": 8746,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-04-27T22:39:44.971Z",
+                      "startTime": "2026-04-27T23:55:23.871Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -140,15 +420,18 @@
                   "status": "expected"
                 }
               ],
-              "id": "cc2325c56b089e371bda-1939b2d691718005d0fd",
+              "id": "cc2325c56b089e371bda-bd9b4e10d29c0c7c6d88",
               "file": "ui/footerLinks.spec.ts",
               "line": 27,
               "column": 9
             },
             {
-              "title": "should navigate to Pay Bills page with correct URL",
+              "title": "TC-01: Should navigate to Pay Bills page with correct URL @smoke",
               "ok": true,
-              "tags": [],
+              "tags": [
+                "smoke",
+                "smoke"
+              ],
               "tests": [
                 {
                   "timeout": 60000,
@@ -158,15 +441,15 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
                       "status": "passed",
-                      "duration": 7155,
+                      "duration": 9587,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-04-27T22:39:53.710Z",
+                      "startTime": "2026-04-27T23:55:32.692Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -174,15 +457,18 @@
                   "status": "expected"
                 }
               ],
-              "id": "cc2325c56b089e371bda-7b888c9d65d9bb9259b1",
+              "id": "cc2325c56b089e371bda-e4fa72420d61172313e5",
               "file": "ui/footerLinks.spec.ts",
               "line": 27,
               "column": 9
             },
             {
-              "title": "should navigate to Savings Calculator page with correct URL",
+              "title": "TC-01: Should navigate to Savings Calculator page with correct URL @smoke",
               "ok": true,
-              "tags": [],
+              "tags": [
+                "smoke",
+                "smoke"
+              ],
               "tests": [
                 {
                   "timeout": 60000,
@@ -192,15 +478,15 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
                       "status": "passed",
-                      "duration": 5637,
+                      "duration": 8793,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-04-27T22:40:00.933Z",
+                      "startTime": "2026-04-27T23:55:42.355Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -208,15 +494,18 @@
                   "status": "expected"
                 }
               ],
-              "id": "cc2325c56b089e371bda-419b583938d5cc174503",
+              "id": "cc2325c56b089e371bda-62bd3b724e9494b31894",
               "file": "ui/footerLinks.spec.ts",
               "line": 27,
               "column": 9
             },
             {
-              "title": "should navigate to Blog page with correct URL",
+              "title": "TC-01: Should navigate to Blog page with correct URL @smoke",
               "ok": true,
-              "tags": [],
+              "tags": [
+                "smoke",
+                "smoke"
+              ],
               "tests": [
                 {
                   "timeout": 60000,
@@ -226,15 +515,15 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
                       "status": "passed",
-                      "duration": 6246,
+                      "duration": 7004,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-04-27T22:40:06.612Z",
+                      "startTime": "2026-04-27T23:55:51.202Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -242,15 +531,18 @@
                   "status": "expected"
                 }
               ],
-              "id": "cc2325c56b089e371bda-6318ce96b5a3be2b1984",
+              "id": "cc2325c56b089e371bda-b506726435ded1a4e548",
               "file": "ui/footerLinks.spec.ts",
               "line": 27,
               "column": 9
             },
             {
-              "title": "should navigate to Careers page with correct URL",
+              "title": "TC-01: Should navigate to Careers page with correct URL @smoke",
               "ok": true,
-              "tags": [],
+              "tags": [
+                "smoke",
+                "smoke"
+              ],
               "tests": [
                 {
                   "timeout": 60000,
@@ -260,15 +552,15 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
                       "status": "passed",
-                      "duration": 6049,
+                      "duration": 9131,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-04-27T22:40:12.892Z",
+                      "startTime": "2026-04-27T23:55:58.236Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -276,15 +568,18 @@
                   "status": "expected"
                 }
               ],
-              "id": "cc2325c56b089e371bda-e227cc15accb5b14c8ef",
+              "id": "cc2325c56b089e371bda-566e57d76e3868caddec",
               "file": "ui/footerLinks.spec.ts",
               "line": 27,
               "column": 9
             },
             {
-              "title": "should navigate to Reach out to us page with correct URL",
+              "title": "TC-01: Should navigate to Reach out to us page with correct URL @smoke",
               "ok": true,
-              "tags": [],
+              "tags": [
+                "smoke",
+                "smoke"
+              ],
               "tests": [
                 {
                   "timeout": 60000,
@@ -294,15 +589,15 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
                       "status": "passed",
-                      "duration": 5027,
+                      "duration": 6534,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-04-27T22:40:18.965Z",
+                      "startTime": "2026-04-27T23:56:07.421Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -310,15 +605,18 @@
                   "status": "expected"
                 }
               ],
-              "id": "cc2325c56b089e371bda-d6c9ca04abfef82e8f69",
+              "id": "cc2325c56b089e371bda-50b58816795f3f30289a",
               "file": "ui/footerLinks.spec.ts",
               "line": 27,
               "column": 9
             },
             {
-              "title": "should navigate to FAQs page with correct URL",
+              "title": "TC-01: Should navigate to FAQs page with correct URL @smoke",
               "ok": true,
-              "tags": [],
+              "tags": [
+                "smoke",
+                "smoke"
+              ],
               "tests": [
                 {
                   "timeout": 60000,
@@ -328,15 +626,15 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
                       "status": "passed",
-                      "duration": 6585,
+                      "duration": 7090,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-04-27T22:40:24.014Z",
+                      "startTime": "2026-04-27T23:56:14.004Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -344,15 +642,18 @@
                   "status": "expected"
                 }
               ],
-              "id": "cc2325c56b089e371bda-d1071127071724ea4448",
+              "id": "cc2325c56b089e371bda-fcbed453cbf97f5f53c1",
               "file": "ui/footerLinks.spec.ts",
               "line": 27,
               "column": 9
             },
             {
-              "title": "should navigate to About page with correct URL",
+              "title": "TC-01: Should navigate to About page with correct URL @smoke",
               "ok": true,
-              "tags": [],
+              "tags": [
+                "smoke",
+                "smoke"
+              ],
               "tests": [
                 {
                   "timeout": 60000,
@@ -362,15 +663,15 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
                       "status": "passed",
-                      "duration": 5675,
+                      "duration": 6730,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-04-27T22:40:30.633Z",
+                      "startTime": "2026-04-27T23:56:21.117Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -378,15 +679,18 @@
                   "status": "expected"
                 }
               ],
-              "id": "cc2325c56b089e371bda-abd46a34bc45227b42a0",
+              "id": "cc2325c56b089e371bda-b48d2e23485661dff7d1",
               "file": "ui/footerLinks.spec.ts",
               "line": 27,
               "column": 9
             },
             {
-              "title": "should navigate to Terms and Conditions page with correct URL",
+              "title": "TC-01: Should navigate to Terms and Conditions page with correct URL @smoke",
               "ok": true,
-              "tags": [],
+              "tags": [
+                "smoke",
+                "smoke"
+              ],
               "tests": [
                 {
                   "timeout": 60000,
@@ -396,15 +700,15 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
                       "status": "passed",
-                      "duration": 4465,
+                      "duration": 6134,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-04-27T22:40:36.343Z",
+                      "startTime": "2026-04-27T23:56:27.875Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -412,15 +716,18 @@
                   "status": "expected"
                 }
               ],
-              "id": "cc2325c56b089e371bda-0a642dd18fc7d19e10f5",
+              "id": "cc2325c56b089e371bda-51f857ec7c106a4a51d7",
               "file": "ui/footerLinks.spec.ts",
               "line": 27,
               "column": 9
             },
             {
-              "title": "should navigate to Privacy Policy page with correct URL",
+              "title": "TC-01: Should navigate to Privacy Policy page with correct URL @smoke",
               "ok": true,
-              "tags": [],
+              "tags": [
+                "smoke",
+                "smoke"
+              ],
               "tests": [
                 {
                   "timeout": 60000,
@@ -430,15 +737,15 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
                       "status": "passed",
-                      "duration": 5490,
+                      "duration": 4092,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-04-27T22:40:40.834Z",
+                      "startTime": "2026-04-27T23:56:34.042Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -446,15 +753,18 @@
                   "status": "expected"
                 }
               ],
-              "id": "cc2325c56b089e371bda-f9ddfdf058920b924219",
+              "id": "cc2325c56b089e371bda-f2c9d586e6f999f39a6d",
               "file": "ui/footerLinks.spec.ts",
               "line": 27,
               "column": 9
             },
             {
-              "title": "should open Facebook link in a new tab",
+              "title": "TC-01: Should open Facebook link in a new tab @smoke",
               "ok": true,
-              "tags": [],
+              "tags": [
+                "smoke",
+                "smoke"
+              ],
               "tests": [
                 {
                   "timeout": 60000,
@@ -464,15 +774,15 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
                       "status": "passed",
-                      "duration": 9616,
+                      "duration": 16109,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-04-27T22:40:46.352Z",
+                      "startTime": "2026-04-27T23:56:38.163Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -480,15 +790,18 @@
                   "status": "expected"
                 }
               ],
-              "id": "cc2325c56b089e371bda-73ab55eef1356b700945",
+              "id": "cc2325c56b089e371bda-8464d633b8a9846cdc8d",
               "file": "ui/footerLinks.spec.ts",
               "line": 45,
               "column": 9
             },
             {
-              "title": "should open Twitter link in a new tab",
+              "title": "TC-01: Should open Twitter link in a new tab @smoke",
               "ok": true,
-              "tags": [],
+              "tags": [
+                "smoke",
+                "smoke"
+              ],
               "tests": [
                 {
                   "timeout": 60000,
@@ -498,15 +811,15 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
                       "status": "passed",
-                      "duration": 14592,
+                      "duration": 45316,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-04-27T22:40:55.996Z",
+                      "startTime": "2026-04-27T23:56:54.304Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -514,15 +827,18 @@
                   "status": "expected"
                 }
               ],
-              "id": "cc2325c56b089e371bda-ea44534d23a3ac591117",
+              "id": "cc2325c56b089e371bda-1d9f55e92a36feb4538a",
               "file": "ui/footerLinks.spec.ts",
               "line": 45,
               "column": 9
             },
             {
-              "title": "should open Instagram link in a new tab",
+              "title": "TC-01: Should open Instagram link in a new tab @smoke",
               "ok": true,
-              "tags": [],
+              "tags": [
+                "smoke",
+                "smoke"
+              ],
               "tests": [
                 {
                   "timeout": 60000,
@@ -532,15 +848,15 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
                       "status": "passed",
-                      "duration": 8323,
+                      "duration": 9770,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-04-27T22:41:10.615Z",
+                      "startTime": "2026-04-27T23:57:39.717Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -548,15 +864,18 @@
                   "status": "expected"
                 }
               ],
-              "id": "cc2325c56b089e371bda-19b4cc7a046292dde540",
+              "id": "cc2325c56b089e371bda-6647149623525b7bbaa9",
               "file": "ui/footerLinks.spec.ts",
               "line": 45,
               "column": 9
             },
             {
-              "title": "should open LinkedIn link in a new tab",
+              "title": "TC-01: Should open LinkedIn link in a new tab @smoke",
               "ok": true,
-              "tags": [],
+              "tags": [
+                "smoke",
+                "smoke"
+              ],
               "tests": [
                 {
                   "timeout": 60000,
@@ -566,15 +885,15 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
                       "status": "passed",
-                      "duration": 7970,
+                      "duration": 11576,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-04-27T22:41:19.000Z",
+                      "startTime": "2026-04-27T23:57:49.598Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -582,15 +901,18 @@
                   "status": "expected"
                 }
               ],
-              "id": "cc2325c56b089e371bda-4529f7a63f53e48b61a5",
+              "id": "cc2325c56b089e371bda-ef463928ee35eab8da43",
               "file": "ui/footerLinks.spec.ts",
               "line": 45,
               "column": 9
             },
             {
-              "title": "should open YouTube link in a new tab",
+              "title": "TC-01: Should open YouTube link in a new tab @smoke",
               "ok": true,
-              "tags": [],
+              "tags": [
+                "smoke",
+                "smoke"
+              ],
               "tests": [
                 {
                   "timeout": 60000,
@@ -600,15 +922,15 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
                       "status": "passed",
-                      "duration": 9668,
+                      "duration": 7563,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-04-27T22:41:27.112Z",
+                      "startTime": "2026-04-27T23:58:01.212Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -616,15 +938,18 @@
                   "status": "expected"
                 }
               ],
-              "id": "cc2325c56b089e371bda-09d41578814b0f59a8d8",
+              "id": "cc2325c56b089e371bda-f7dab2f758dfac105a7b",
               "file": "ui/footerLinks.spec.ts",
               "line": 45,
               "column": 9
             },
             {
-              "title": "should open Snapchat link in a new tab",
+              "title": "TC-01: Should open Snapchat link in a new tab @smoke",
               "ok": true,
-              "tags": [],
+              "tags": [
+                "smoke",
+                "smoke"
+              ],
               "tests": [
                 {
                   "timeout": 60000,
@@ -634,15 +959,15 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
                       "status": "passed",
-                      "duration": 33471,
+                      "duration": 12366,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-04-27T22:41:36.799Z",
+                      "startTime": "2026-04-27T23:58:08.797Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -650,15 +975,18 @@
                   "status": "expected"
                 }
               ],
-              "id": "cc2325c56b089e371bda-e79d48ad72eb631c7a91",
+              "id": "cc2325c56b089e371bda-0717dfb77c6f0b04cfa5",
               "file": "ui/footerLinks.spec.ts",
               "line": 45,
               "column": 9
             },
             {
-              "title": "should open Spotify link in a new tab",
+              "title": "TC-01: Should open Spotify link in a new tab @smoke",
               "ok": true,
-              "tags": [],
+              "tags": [
+                "smoke",
+                "smoke"
+              ],
               "tests": [
                 {
                   "timeout": 60000,
@@ -668,15 +996,15 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
                       "status": "passed",
-                      "duration": 23841,
+                      "duration": 11880,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-04-27T22:42:10.298Z",
+                      "startTime": "2026-04-27T23:58:21.193Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -684,15 +1012,18 @@
                   "status": "expected"
                 }
               ],
-              "id": "cc2325c56b089e371bda-f42607465c7c8a395093",
+              "id": "cc2325c56b089e371bda-1033e9e1957243b23b68",
               "file": "ui/footerLinks.spec.ts",
               "line": 45,
               "column": 9
             },
             {
-              "title": "should navigate to TikTok page in the same tab",
+              "title": "should navigate to TikTok page in the same tab @smoke",
               "ok": true,
-              "tags": [],
+              "tags": [
+                "smoke",
+                "smoke"
+              ],
               "tests": [
                 {
                   "timeout": 60000,
@@ -702,15 +1033,15 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
                       "status": "passed",
-                      "duration": 6933,
+                      "duration": 4481,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-04-27T22:42:34.177Z",
+                      "startTime": "2026-04-27T23:58:33.107Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -718,7 +1049,7 @@
                   "status": "expected"
                 }
               ],
-              "id": "cc2325c56b089e371bda-4fde7b03335d9bab3a6e",
+              "id": "cc2325c56b089e371bda-13a2f604f914517ff2bd",
               "file": "ui/footerLinks.spec.ts",
               "line": 59,
               "column": 7
@@ -730,9 +1061,9 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-04-27T22:39:37.077Z",
-    "duration": 184232.49300000002,
-    "expected": 19,
+    "startTime": "2026-04-27T23:55:06.093Z",
+    "duration": 212106.519,
+    "expected": 26,
     "skipped": 0,
     "unexpected": 0,
     "flaky": 0

@@ -1,0 +1,47 @@
+name: Daily Smoke Tests
+
+on:
+  schedule:
+    - cron: '0 7 * * *'   # 7 AM UTC daily
+  workflow_dispatch:       # allow manual trigger
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - run: npm ci
+      - run: npx playwright install --with-deps
+
+      # Run smoke tests with RUN_MODE
+      - name: Run Playwright smoke tests
+        run: RUN_MODE=daily-smoke npx playwright test --grep "@smoke"
+        env:
+          TEAMS_WEBHOOK_URL: ${{ secrets.POWERAUTOMATE_TEAMS_URL }}
+          GITHUB_PAGES_BASE: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
+
+      # Upload the HTML report as an artifact (for CI debugging)
+      - name: Upload Playwright report artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-smoke
+          path: playwright-report/
+        
+      - name: Create .nojekyll file
+        run: touch playwright-report/.nojekyll
+
+      # Deploy the HTML report to GitHub Pages
+      - name: Deploy report to GitHub Pages
+        if: always()   # deploy even if tests fail
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./playwright-report
+          destination_dir: smoke-report   # optional: puts report in subfolder
+          keep_files: false               # overwrite old report

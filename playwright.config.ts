@@ -28,8 +28,8 @@ export default defineConfig({
     // },
   ],
   reporter: [
-    ['html', { outputFolder: 'playwright-report' }],
+    ['html'],
     ['json', { outputFile: 'test-results.json' }],
-    ['list'],
+    ['./tests/reporters/teamsReporter.ts']   // custom reporter
   ],
 });
