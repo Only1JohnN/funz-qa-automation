@@ -24,6 +24,7 @@ test.describe('Authentication & Navigation Flows @regression', () => {
   });
 
   test('TC-01: User can select "User" role and reach signup form @smoke', async () => {
+    await homePage.clickAcceptCookies();
     await homePage.clickRegister();
     await registerPage.selectUserRole();
     await registerPage.clickContinue();
@@ -31,6 +32,7 @@ test.describe('Authentication & Navigation Flows @regression', () => {
   });
 
   test('TC-02: User can select "Organizer" role and reach signup form @smoke', async () => {
+    await homePage.clickAcceptCookies();
     await homePage.clickRegister();
     await registerPage.selectOrganizerRole();
     await registerPage.clickContinue();
@@ -38,6 +40,7 @@ test.describe('Authentication & Navigation Flows @regression', () => {
   });
 
   test('TC-03: Back button returns from user signup to role selection @smoke', async () => {
+    await homePage.clickAcceptCookies();
     await homePage.clickRegister();
     await registerPage.selectUserRole();
     await registerPage.clickContinue();
@@ -48,6 +51,7 @@ test.describe('Authentication & Navigation Flows @regression', () => {
   });
 
   test('TC-04: "Reset it" link leads to password reset page @smoke', async () => {
+    await homePage.clickAcceptCookies();
     await homePage.clickLogin();
     await loginPage.assertOnLoginPage();
     await loginPage.clickResetPassword();
@@ -56,6 +60,7 @@ test.describe('Authentication & Navigation Flows @regression', () => {
 
   test('TC-05: Navigation between Login and Register pages works @smoke', async () => {
     // Register → Login
+    await homePage.clickAcceptCookies();
     await homePage.clickRegister();
     await registerPage.assertOnRoleSelectionPage();
     await registerPage.clickLogin();
@@ -68,6 +73,7 @@ test.describe('Authentication & Navigation Flows @regression', () => {
 
   test('TC-06: User can see error message with invalid credentials @smoke', async ({ page }) => {
     // Navigate to login
+    await homePage.clickAcceptCookies();
     await homePage.clickLogin();
     await loginPage.assertOnLoginPage();
 
@@ -83,6 +89,7 @@ test.describe('Authentication & Navigation Flows @regression', () => {
     // This test requires a valid staging account – set via .env
     test.skip(!process.env.TEST_USER_EMAIL, 'No valid test credentials provided');
 
+    await homePage.clickAcceptCookies();
     await homePage.clickLogin();
     await loginPage.assertOnLoginPage();
 
@@ -95,6 +102,7 @@ test.describe('Authentication & Navigation Flows @regression', () => {
   // test('TC-08: Complete user registration flow (happy path) @regression', async ({ page }) => {
   //   const { user } = testUsers; // dynamic email to avoid duplicates
     
+  //   await homePage.clickAcceptCookies();
   //   await homePage.clickRegister();
   //   await registerPage.selectUserRole();
   //   await registerPage.clickContinue();
