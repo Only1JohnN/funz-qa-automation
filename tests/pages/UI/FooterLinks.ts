@@ -49,14 +49,14 @@ export class FooterLinks {
     this.privacyPolicyLink = this.page.getByRole('link', { name: 'Privacy Policy', exact: true });
     
     // Social media links (adjust selectors as needed)
-    this.facebookLink = page.getByRole('link', { name: 'facebook', exact: true });
-    this.twitterLink = page.locator('a[title="twitter"]'); // or getByRole('link', { name: 'twitter', exact: true })
-    this.instagramLink = page.getByRole('link', { name: 'instagram', exact: true });
-    this.linkedinLink = page.getByRole('link', { name: 'linkedin', exact: true });
-    this.tiktokLink = page.locator('a[title="tiktok"]');
-    this.youtubeLink = page.getByRole('link', { name: 'youtube', exact: true });
-    this.snapchatLink = page.getByRole('link', { name: 'snapchat', exact: true });
-    this.spotifyLink = page.locator('a[title="spotify"]');
+    this.facebookLink = page.getByRole('link', { name: /facebook/i });
+    this.twitterLink = page.locator('a[title*="twitter"]').or(page.getByRole('link', { name: /twitter/i }));
+    this.instagramLink = page.getByRole('link', { name: /instagram/i });
+    this.linkedinLink = page.getByRole('link', { name: /linkedin/i });
+    this.tiktokLink = page.locator('a[title*="tiktok"]').or(page.getByRole('link', { name: /tiktok/i }));
+    this.youtubeLink = page.getByRole('link', { name: /youtube/i });
+    this.snapchatLink = page.getByRole('link', { name: /snapchat/i });
+    this.spotifyLink = page.locator('a[title*="spotify"]').or(page.getByRole('link', { name: /spotify/i }));
   }
 
   // Main footer link methods (URL assertion inside each)
@@ -112,7 +112,7 @@ export class FooterLinks {
       link.click(),
     ]);
     await newPage.waitForLoadState();
-    await newPage.close();
+    return newPage;  // Return the new page instead of closing
   }
 
   // Helper for links that navigate the same tab (e.g., TikTok)
@@ -122,13 +122,13 @@ export class FooterLinks {
   }
 
   // Social media click methods
-  async clickFacebook() { await this.clickNewTab(this.facebookLink); }
-  async clickTwitter() { await this.clickNewTab(this.twitterLink); }
-  async clickInstagram() { await this.clickNewTab(this.instagramLink); }
-  async clickLinkedin() { await this.clickNewTab(this.linkedinLink); }
-  async clickYoutube() { await this.clickNewTab(this.youtubeLink); }
-  async clickSnapchat() { await this.clickNewTab(this.snapchatLink); }
-  async clickSpotify() { await this.clickNewTab(this.spotifyLink); }
+  async clickFacebook() { return this.clickNewTab(this.facebookLink); }
+  async clickTwitter() { return this.clickNewTab(this.twitterLink); }
+  async clickInstagram() { return this.clickNewTab(this.instagramLink); }
+  async clickLinkedin() { return this.clickNewTab(this.linkedinLink); }
+  async clickYoutube() { return this.clickNewTab(this.youtubeLink); }
+  async clickSnapchat() { return this.clickNewTab(this.snapchatLink); }
+  async clickSpotify() { return this.clickNewTab(this.spotifyLink); }
   
   // TikTok navigates in the same tab
   async clickTiktok() {

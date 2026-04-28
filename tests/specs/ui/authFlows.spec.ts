@@ -8,7 +8,7 @@ import { PasswordResetPage } from '../../pages/UI/PasswordResetPage';
 import { testConfig } from '../../config/testConfig';
 import { testUsers } from '../../fixtures/testData';
 
-test.describe('Authentication & Navigation Flows @smoke', () => {
+test.describe('Authentication & Navigation Flows @regression', () => {
   let homePage: HomePage;
   let registerPage: RegisterPage;
   let loginPage: LoginPage;
