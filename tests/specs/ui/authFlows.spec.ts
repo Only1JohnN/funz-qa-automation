@@ -21,6 +21,7 @@ test.describe('Authentication & Navigation Flows @regression', () => {
     registerPage = new RegisterPage(page);
     loginPage = new LoginPage(page);
     resetPage = new PasswordResetPage(page);
+    await homePage.clickAcceptCookies();
   });
 
   test('TC-01: User can select "User" role and reach signup form @smoke', async () => {

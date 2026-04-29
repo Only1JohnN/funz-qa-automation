@@ -2,7 +2,7 @@ name: Daily Smoke Tests
 
 on:
   schedule:
-    - cron: '0 7 * * *'
+    - cron: '13 7 * * *'
   workflow_dispatch:
 
 jobs:
@@ -30,7 +30,11 @@ jobs:
         env:
           RUN_MODE: daily-smoke
           TEAMS_WEBHOOK_URL: ${{ secrets.TEAMS_WEBHOOK_URL }}
-          TEST_ENV: staging
+          TEST_ENV: ${ { secrets.TEST_ENV } }
+          TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
+          TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
+          BASE_URL: ${{ secrets.BASE_URL }}
+          API_BASE_URL: ${{ secrets.API_BASE_URL }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
           GITHUB_RUN_ID: ${{ github.run_id }}

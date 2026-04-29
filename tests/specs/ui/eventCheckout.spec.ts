@@ -6,9 +6,11 @@ import { SuccessPage } from '../../pages/UI/SuccessPage';
 import { TicketPage } from '../../pages/UI/TicketPage';
 import { testUsers } from '../../fixtures/testData';
 import { listenerCount } from 'node:process';
+import { HomePage } from '../../pages/UI/HomePage';
 
 test.describe('Event Checkout Flows @regression', () => {
-    let eventPage: EventPage;
+    let homePage: HomePage;
+    let eventPage: EventPage;;
     let checkoutPage: CheckoutPage;
     let paymentPage: PaymentPage;
     let successPage: SuccessPage;
@@ -16,11 +18,13 @@ test.describe('Event Checkout Flows @regression', () => {
 
   test.beforeEach(async ({ page }) => {
     await page.goto('/');
+    homePage = new HomePage(page);
     eventPage = new EventPage(page);
     checkoutPage = new CheckoutPage(page);
     paymentPage = new PaymentPage(page);
     successPage = new SuccessPage(page);
     ticketPage = new TicketPage(page);
+    await homePage.clickAcceptCookies();
   });
 
   test('TC-08: Event selection and navigation @smoke', async ({ page }) => {
@@ -95,7 +99,6 @@ test.describe('Event Checkout Flows @regression', () => {
     // Simulate a completed purchase: go to success page with valid token? 
     // For testing, we can recreate the flow up to success.
     const guestuser = testUsers.guestuser();
-    
     await eventPage.gotoEvents();
     await eventPage.selectEvent();
     await eventPage.increaseTicketQuantity();
