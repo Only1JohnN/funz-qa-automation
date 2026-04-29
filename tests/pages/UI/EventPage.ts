@@ -23,40 +23,35 @@ export class EventPage {
     await this.eventsLink.click();
   }
 
+  async handleCountryMismatch() {
+    await this.page.waitForLoadState('domcontentloaded');
+  
+    // Get current selected country from combobox text
+    const combobox = this.page.getByRole('combobox', { name: 'select event location' });
+    const currentCountry = await combobox.textContent();
+    if (currentCountry?.includes('Nigeria')) return; // Already correct
+  
+    // Open combobox and wait for options
+    await combobox.click();
+    const nigeriaOption = this.page.getByRole('option', { name: 'Nigeria' });
+    await nigeriaOption.waitFor({ state: 'visible' });
+    await nigeriaOption.click();
+  
+    // Verify URL and content changed to Nigeria
+    await expect(this.page).toHaveURL(/country=NG|nigeria/i);
+    await expect(this.page.getByText(/No upcoming Events/i)).not.toBeVisible();
+  }
+
   async selectEvent() {
-    // 1. Ensure correct country FIRST
     await this.handleCountryMismatch();
-    
-    // 2. Now safe to click event and wait for navigation
+
+    // Ensure event link is visible before interaction
+    await this.eventItem.waitFor({ state: 'visible' });
+
     await Promise.all([
       this.page.waitForURL(/\/events\/[\w-]+/, { timeout: 30000 }),
       this.eventItem.click(),
     ]);
-}
-
-  async handleCountryMismatch() {
-    await this.page.waitForLoadState('domcontentloaded');
-  
-    // 1. PRIMARY CHECK: UI state (most reliable)
-    const usEmptyState = this.page.getByText(/No upcoming Events/i);
-    const isUSContext = await usEmptyState.isVisible().catch(() => false);
-  
-    // 2. FALLBACK CHECK: URL (optional safety net)
-    const url = this.page.url();
-    const isUSUrl = url.includes('country=US');
-  
-    if (!isUSContext && !isUSUrl) return;
-  
-    // 3. Only act if we're truly in US state
-    const combobox = this.page.getByRole('combobox', { name: 'select event location' });
-  
-    if (await combobox.isVisible().catch(() => false)) {
-      await combobox.click();
-      await this.page.getByRole('option', { name: 'Nigeria' }).click();
-  
-      // ✅ confirm URL is now Nigeria
-      await expect(this.page).toHaveURL(/country=NG|nigeria/i);
-    }
   }
 
   async increaseTicketQuantity() {
