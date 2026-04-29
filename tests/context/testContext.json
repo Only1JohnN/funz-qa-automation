@@ -171,7 +171,7 @@
   },
   "TC-35: Unauthenticated user can not add ticket to cart": {
   "description": "Guest user can select an event, choose ticket quantity, and add to cart.",
-  "impact": "Unauthenticated users cannot add items to cart – lost sales.",
+  "impact": "Unauthenticated users should not be able to add items to cart.",
   "module": "Cart (Unauthenticated)"
   },
   "TC-36: Authenticated user can add ticket to cart and view cart": {
